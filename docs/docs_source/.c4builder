@@ -1,0 +1,32 @@
+{
+	"plantumlVersion": "latest",
+	"projectName": "SisRep API",
+	"homepageName": "Sistema de Reaproveitamento de Disciplinas",
+	"rootFolder": "src",
+	"distFolder": "../docs",
+	"generateMD": true,
+	"generatePDF": false,
+	"generateCompleteMD": false,
+	"generateCompletePDF": false,
+	"generateWEB": true,
+	"includeNavigation": true,
+	"includeTableOfContents": true,
+	"webTheme": " https://unpkg.com/docsify/lib/themes/vue.css",
+	"supportSearch": true,
+	"repoUrl": "https://github.com/CharlesVilela/IoTPlatform.git",
+	"docsifyTemplate": "",
+	"webPort": "3000",
+	"includeBreadcrumbs": true,
+	"includeLinkToDiagram": false,
+	"diagramsOnTop": false,
+	"embedDiagram": true,
+	"excludeOtherFiles": false,
+	"generateLocalImages": true,
+	"plantumlServerUrl": "https://www.plantuml.com/plantuml",
+	"diagramFormat": "svg",
+	"charset": "UTF-8",
+	"hasRun": true,
+	"checksums": [
+		"605d29bba8b2461222810024b2c01a1d37c78a93baf816dea1a0cd67b5a598cc"
+	]
+}
