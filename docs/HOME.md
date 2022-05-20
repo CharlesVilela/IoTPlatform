@@ -1,4 +1,4 @@
-# Sistema de Reaproveitamento de Disciplinas
+# Sistema da Internet das Coisas
 
 ## **Documentação da Arquitetura**
 
@@ -26,11 +26,11 @@ A arquitetura do projeto tem como principal objetivo melhorar a experiência do 
 
 Pensando nisso, criamos uma visualização da nossa arquitetura utilizando uma abordagem mais mais simples: o C4Model.
 
-## **O registro arquitetural do SisPRE**
+## **O registro arquitetural do Iot Platform**
 
 ---
 
-Ao longo das páginas deste site, você poderá analisar em detalhes como a arquitetura do SisPRE está projetada, suas tecnologias, convenções, padrões adotados e restrições.
+Ao longo das páginas deste site, você poderá analisar em detalhes como a arquitetura do IoT Platform está projetada, suas tecnologias, convenções, padrões adotados e restrições.
 Aqui ela é expressa por camadas com base no C4 Model proposto por Simon Brown. Cada camada é focada diferentes públicos alvo, em suas diferentes necessidades e níveis de detalhe, a se saber:
 
 - Camada 1: apresentação do contexto geral e propósito do sistema da perspectiva a um usuário técnico e/ou não técnico seja ele interno ou externo à equipe de desenvolvimento.
