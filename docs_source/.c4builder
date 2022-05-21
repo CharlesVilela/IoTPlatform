@@ -1,7 +1,7 @@
 {
 	"plantumlVersion": "latest",
-	"projectName": "SisRep API",
-	"homepageName": "Sistema de Reaproveitamento de Disciplinas",
+	"projectName": "IoT Platform",
+	"homepageName": "Sistema Internet das Coisas",
 	"rootFolder": "src",
 	"distFolder": "../docs",
 	"generateMD": true,
