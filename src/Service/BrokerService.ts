@@ -10,7 +10,7 @@ import Canal from "../model/Canal";
 import mosca from "mosca"
 import test_mosca from "../config/test_mosca"
 
-import GerenciarBroker from "../Teste/GerenciarBroker"
+//import GerenciarBroker from "../Teste/GerenciarBroker"
 
 class BrokerServiceConectar {
 

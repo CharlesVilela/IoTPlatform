@@ -11,7 +11,8 @@ class UsuarioController {
             const { nomeUsuario, email, senha } = req.body;
             const newUsuario = new Usuario({ nomeUsuario: nomeUsuario, email: email, senha: senha });
 
-            return UsuarioService.Cadastrar(newUsuario);
+            return res.json ( UsuarioService.Cadastrar(newUsuario));
+           
 
             // const usuario = await Usuario.findOne({ email: email });
 
