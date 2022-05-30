@@ -2,7 +2,6 @@ import Usuario from '../model/Usuario';
 import { Request, Response } from 'express';
 
 import statusCode from '../config/statusCode';
-import UsuarioService from '../Service/UsuarioService';
 
 class UsuarioController {
 
@@ -11,17 +10,14 @@ class UsuarioController {
             const { nomeUsuario, email, senha } = req.body;
             const newUsuario = new Usuario({ nomeUsuario: nomeUsuario, email: email, senha: senha });
 
-            return res.json ( UsuarioService.Cadastrar(newUsuario));
-           
+            const usuario = await Usuario.findOne({ email: email });
 
-            // const usuario = await Usuario.findOne({ email: email });
-
-            // if( usuario != null) { 
-            //     return res.status(statusCode.conflict).send('Esse Usuario já existe! Tente outro!'); 
-            // } else {
-            //     await Usuario.create(newUsuario);
-            //     return res.status(statusCode.created).send({ newUsuario });
-            // }
+            if( usuario != null) { 
+                return res.status(statusCode.conflict).send('Esse Usuario já existe! Tente outro!'); 
+            } else {
+                await Usuario.create(newUsuario);
+                return res.status(statusCode.created).send({ newUsuario });
+            }
         } catch (error) {
             return res.status(statusCode.error).send('Error Created!');
         }
