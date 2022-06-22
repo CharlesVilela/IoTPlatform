@@ -8,7 +8,7 @@ import Dispositivo from '../model/Dispositivo';
 import Canal from "../model/Canal";
 
 import mosca from "mosca"
-import test_mosca from "../config/test_mosca"
+
 
 //import GerenciarBroker from "../Teste/GerenciarBroker"
 

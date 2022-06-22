@@ -10,7 +10,7 @@ class TopicoController {
     public async Cadastrar(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const { nome, porta } = req.body;
+            const { nome } = req.body;
 
             const topico = await Topico.findOne({ nome: nome });
             if (topico != null) {
@@ -19,7 +19,7 @@ class TopicoController {
                 const newTopico = new Topico({ nome: nome, usuario: id });
                 await Topico.create(newTopico);
 
-                await Broker.findOneAndUpdate({ porta: porta }, { $push: { topico: newTopico } });
+                await Broker.findOneAndUpdate({ usuario: id }, { $push: { topico: newTopico } });
 
                 return res.status(statusCode.success).json({ newTopico });
             }

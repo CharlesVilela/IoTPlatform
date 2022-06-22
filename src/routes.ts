@@ -25,34 +25,34 @@ import multerConfig from './config/Multer';
 const routes = Router();
 
 // ROUTES LOGIN E RECUPERAÇÃO DE SENHA
-routes.post('/logar', LogarService.Logar);
-routes.post('/recuperarSenha', LogarService.RecuperarSenha);
+routes.post('/usuario/logar', LogarService.Logar);
+routes.post('/usuario/recuperarSenha', LogarService.RecuperarSenha);
 
 // ROUTES USUARIO
-routes.post('/usuario/cadastrar', UsuarioController.Cadastrar);
+routes.post('/usuario', UsuarioController.Cadastrar);
 
 //routes.use(autoMidlewares); // UTILIZANDO O GERADOR DO TOKEN. DESTA LINHA PARA BAIXO SÓ SERÁ UTILIZADA SE TIVER O TOKEN DE AUTENTICAÇÃO.
-routes.patch('/usuario/foto/:id', multer(multerConfig).single('file'), UsuarioController.ImagemPerfil);
-routes.get('/usuario/listar', UsuarioController.ListarTodos);
-routes.get('/usuario/buscar/:id', UsuarioController.BuscarPorId); // O ID utilizado nesta Rota para BUSCAR é o ID do USUÁRIO
-routes.put('/usuario/atualizar/:id', UsuarioController.Atualizar); // O ID utilizado nesta Rota para ATUALIZAR é o ID do USUÁRIO
-routes.delete('/usuario/deletar/:id', UsuarioController.Deletar); // O ID utilizado nesta Rota para DELETAR é o ID do USUÁRIO
+routes.patch('/usuario/:id/foto', multer(multerConfig).single('file'), UsuarioController.ImagemPerfil);
+routes.get('/usuario', UsuarioController.ListarTodos);
+routes.get('/usuario/:id', UsuarioController.BuscarPorId); // O ID utilizado nesta Rota para BUSCAR é o ID do USUÁRIO
+routes.patch('/usuario/:id', UsuarioController.Atualizar); // O ID utilizado nesta Rota para ATUALIZAR é o ID do USUÁRIO
+routes.delete('/usuario/:id', UsuarioController.Deletar); // O ID utilizado nesta Rota para DELETAR é o ID do USUÁRIO
 
 
 // ROUTES BROKER
-routes.post('/broker/cadastrar/:id', BrokerController.Cadastrar); // O ID utilizado nesta rota para realizar o CADASTRO do BROKER é o ID do USUÁRIO
-routes.get('/broker/listar/:id', BrokerController.ListarTodos); // O ID utilizado nesta rota para realizar o LISTARTODOS do BROKER é o ID do USUÁRIO
-routes.get('/broker/buscar/:id', BrokerController.BuscarPorId); // O ID utilizado nesta rota para realizar a BUSCA é o ID do BROKER
-routes.put('/broker/atualizar/:id', BrokerController.Atualizar); // O ID utilizado nesta rota para ATUALIZAR é o ID do BROKER
-routes.delete('/broker/deletar/:id', BrokerController.Deletar); // O ID utilizado nesta rota para DELETAR é o ID do BROKER
+routes.post('/usuario/broker/:id', BrokerController.Cadastrar); // O ID utilizado nesta rota para realizar o CADASTRO do BROKER é o ID do USUÁRIO
+routes.get('/usuario/broker/:id', BrokerController.ListarTodos); // O ID utilizado nesta rota para realizar o LISTARTODOS do BROKER é o ID do USUÁRIO
+routes.get('/usuario/broker/:id/buscar', BrokerController.BuscarPorId); // O ID utilizado nesta rota para realizar a BUSCA é o ID do BROKER
+routes.patch('/usuario/broker/:id', BrokerController.Atualizar); // O ID utilizado nesta rota para ATUALIZAR é o ID do BROKER
+routes.delete('/usuario/broker/:id', BrokerController.Deletar); // O ID utilizado nesta rota para DELETAR é o ID do BROKER
 
 
 // ROUTES TOPICO
-routes.post('/topico/cadastrar/:id', TopicoController.Cadastrar); // O ID utilizado nesta rota para realizar o CADASTRO do TÓPICO é o ID do USUÁRIO
-routes.get('/topico/listar/:id', TopicoController.ListarTodos); // O ID utilizado nesta rota para realizar o LISTARTODOS do TÓPICO é o ID do USUÁRIO
-routes.get('/topico/buscar/:id', TopicoController.BuscarPorId); // O ID utilizado nesta rota para realizar a BUSCA é o ID do TÓPICO
-routes.put('/topico/atualizar/:id', TopicoController.Atualizar); // O ID utilizado nesta rota para ATUALIZAR é o ID do TÓPICO
-routes.delete('/topico/deletar/:id', TopicoController.Deletar); // O ID utilizado nesta rota para DELETAR é o ID do TÓPICO
+routes.post('/usuario/topico/:id', TopicoController.Cadastrar); // O ID utilizado nesta rota para realizar o CADASTRO do TÓPICO é o ID do USUÁRIO
+routes.get('/usuario/topico/:id', TopicoController.ListarTodos); // O ID utilizado nesta rota para realizar o LISTARTODOS do TÓPICO é o ID do USUÁRIO
+routes.get('/usuario/topico/:id/buscar', TopicoController.BuscarPorId); // O ID utilizado nesta rota para realizar a BUSCA é o ID do TÓPICO
+routes.patch('/usuario/topico/:id', TopicoController.Atualizar); // O ID utilizado nesta rota para ATUALIZAR é o ID do TÓPICO
+routes.delete('/usuario/topico/:id', TopicoController.Deletar); // O ID utilizado nesta rota para DELETAR é o ID do TÓPICO
 
 
 // ROUTES DISPOSITIVO

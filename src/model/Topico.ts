@@ -2,7 +2,7 @@ import { Schema, model, Document, Mongoose } from 'mongoose';
 
 interface topicoInterface extends Document {
     nome: string;
-    mensagem: string;
+    path: string;
     usuario: string;
     broker: string;
     dataHoraRegistro: Date;
@@ -14,7 +14,7 @@ const topicoSchema = new Schema ({
         required: true,
         unique: true
     },
-    mensagem:{
+    path:{
         type: String
     },
     usuario: {
