@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import mqtt from "mqtt";
 import statusCode from "../config/statusCode";
-import Broker from "../model/Broker";
+import Broker from "../entities/model/Broker";
 
-import Topico from '../model/Topico';
-import Dispositivo from '../model/Dispositivo';
-import Canal from "../model/Canal";
+import Topico from '../entities/model/Topico';
+import Dispositivo from '../entities/model/Dispositivo';
+import Canal from "../entities/model/Canal";
 
 import mosca from "mosca"
 
@@ -37,28 +37,28 @@ class BrokerServiceConectar {
             })
 
             cliente.on('connect', async () => {
-                
+
                 const nome = buscarTopico.nome
                 const mensagens = mensagem
-                
+
                 cliente.publish(nome, mensagem)
                 await Topico.findByIdAndUpdate(buscarTopico.id, { mensagem: mensagem })
 
                 const topic = { nome: nome, mensagem: mensagens }
                 const canal = await Canal.findOne({ topicos: buscarTopico.id })
 
-                if (canal == null){ 
-                    return res.status(statusCode.not_found).send("Canal não encontrado!") 
-                }else {
-                    if (canal.historico == true){
-                    
+                if (canal == null) {
+                    return res.status(statusCode.not_found).send("Canal não encontrado!")
+                } else {
+                    if (canal.historico == true) {
+
                         const historicoPublicacao = {
                             topico: nome,
                             mensagem: mensagem
                         }
-                       await Canal.findByIdAndUpdate(canal.id,  { $push:  { historicoPublicacao: historicoPublicacao } })
+                        await Canal.findByIdAndUpdate(canal.id, { $push: { historicoPublicacao: historicoPublicacao } })
                     }
-                }            
+                }
 
             })
 

@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
-import Topico from '../model/Topico';
-import Broker from '../model/Broker';
+import Topico from '../entities/model/Topico';
+import Broker from '../entities/model/Broker';
 
 import statusCode from '../config/statusCode';
-import Usuario from "../model/Usuario";
+import Usuario from "../entities/model/Usuario";
 class TopicoController {
 
     public async Cadastrar(req: Request, res: Response) {

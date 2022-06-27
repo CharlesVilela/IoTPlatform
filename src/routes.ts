@@ -16,7 +16,7 @@ import LogarService from './Service/LoginService';
 import BrokerService from './Service/BrokerService';
 
 // IMPORT DO GERADOR DO TOKEN DE AUTENTICAÇÃO
-import autoMidlewares from './middlewares/auth';
+import autoMidlewares from './autenticacao/auth';
 
 // IMPORT DO CONFIG
 import multerConfig from './config/Multer';

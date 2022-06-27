@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import TipoDispositivo from '../model/TipoDispositivo';
+import TipoDispositivo from '../entities/model/TipoDispositivo';
 import statusCode from '../config/statusCode';
 
 class TipoDispositivoController {

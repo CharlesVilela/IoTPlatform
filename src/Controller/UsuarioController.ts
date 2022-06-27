@@ -1,26 +1,22 @@
-import Usuario from '../model/Usuario';
+import Usuario from '../entities/model/Usuario';
 import { Request, Response } from 'express';
 
 import statusCode from '../config/statusCode';
 
+import UsuarioService from '../Service/UsuarioService';
+
 class UsuarioController {
 
     public async Cadastrar(req: Request, res: Response) {
-        try {
-            const { nomeUsuario, email, senha } = req.body;
-            const newUsuario = new Usuario({ nomeUsuario: nomeUsuario, email: email, senha: senha });
+        const { nomeUsuario, email, senha } = req.body;
+        const usuario = new Usuario({ nomeUsuario: nomeUsuario, email: email, senha: senha });
 
-            const usuario = await Usuario.findOne({ email: email });
+        const result = await UsuarioService.cadastrar(usuario);
 
-            if( usuario != null) { 
-                return res.status(statusCode.conflict).send('Esse Usuario já existe! Tente outro!'); 
-            } else {
-                await Usuario.create(newUsuario);
-                return res.status(statusCode.created).send({ newUsuario });
-            }
-        } catch (error) {
-            return res.status(statusCode.error).send('Error Created!');
-        }
+        console.log(result.nomeUsuario);
+
+        return res.json(result);
+
     }
 
     public async ListarTodos(req: Request, res: Response) {
@@ -81,11 +77,11 @@ class UsuarioController {
         }
     }
 
-    public async ImagemPerfil(req: Request, res: Response){
-        
+    public async ImagemPerfil(req: Request, res: Response) {
+
         try {
             const { id } = req.params;
-            const {originalname: name, size, filename: key} = req.file;
+            const { originalname: name, size, filename: key } = req.file;
 
             const imagem = {
                 name: name,

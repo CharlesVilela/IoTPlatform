@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 
-import Dispositivo from '../model/Dispositivo';
-import TipoDispositivo from '../model/TipoDispositivo';
+import Dispositivo from '../entities/model/Dispositivo';
+import TipoDispositivo from '../entities/model/TipoDispositivo';
 
 import statusCode from '../config/statusCode';
-import Canal from '../model/Canal';
+import Canal from '../entities/model/Canal';
 
 class DispositivoController {
 
@@ -78,9 +78,9 @@ class DispositivoController {
 
             const canal = await Canal.findOne({ nome: nomeCanal });
 
-            if (canal == null ) {
+            if (canal == null) {
                 return res.status(statusCode.not_found).send('Canal ou Dispositivo não encontrado! Tente novamente!');
-            }else{
+            } else {
                 await Dispositivo.findOneAndUpdate({ nome: nomeDispositivo }, { $push: { canais: canal.id } });
                 return res.status(statusCode.success).send('Canal adicionado ao Dispositivo com sucesso!');
             }
@@ -96,9 +96,9 @@ class DispositivoController {
 
             const canal = await Canal.findOne({ nome: nomeCanal });
 
-            if (canal == null ) {
+            if (canal == null) {
                 return res.status(statusCode.not_found).send('Canal ou Dispositivo não encontrado! Tente novamente!');
-            }else{
+            } else {
                 await Dispositivo.findByIdAndUpdate(id, { $pull: { canais: canal.id } });
                 return res.status(statusCode.success).send('Canal Removido do Dispositivo com sucesso!');
             }

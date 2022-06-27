@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import Broker from '../model/Broker';
+import Broker from '../entities/model/Broker';
 import statusCode from '../config/statusCode';
 
 class BrokerController {

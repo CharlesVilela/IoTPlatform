@@ -1,8 +1,8 @@
 import { format } from "morgan";
 import { Request, Response } from 'express';
 
-import Grupo from '../model/Grupo';
-import Dispositivo from '../model/Dispositivo';
+import Grupo from '../entities/model/Grupo';
+import Dispositivo from '../entities/model/Dispositivo';
 import statusCode from '../config/statusCode';
 
 class GrupoController {
