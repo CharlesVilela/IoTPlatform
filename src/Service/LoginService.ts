@@ -1,53 +1,64 @@
 // IMPORT DAS APIs
-
 import { Request, Response } from "express";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
 // IMPORT DO MODEL
 import Usuario from '../entities/model/Usuario';
 
 // IMPORT DO CONFIG.
-
 import statusCode from '../config/statusCode';
 import nodemailer from '../config/MailerConfig';
+import Criptografar from '../config/Criptografar';
+import Token from "../config/Token";
+import Validations from "../validations/Validations";
 
 class LoginService {
 
     public async Logar(req: Request, res: Response) {
         try {
             const { email, senha } = req.body;
+
+            if (email === "" || senha === "")
+                return res.status(statusCode.bad).json('Os campos: e-mail e senha não podem ser vazios. Preencha-os corretamente!');
+
+            if (await Validations.validarEmail(email) == false) {
+                return ("O E-mail informado é invalido. Informe um e-mail valido!");
+            }
+
             const usuario = await Usuario.findOne({ email }).select('+senha');
 
             if (!usuario)
-                return res.status(statusCode.bad).send('not faund');
+                return res.status(statusCode.bad).json('Não foi possivel encontrar um usuario cadastrado com esse e-mail. Tente novamente!');
 
-            if (senha != usuario.senha)
-                return res.status(statusCode.bad).send('Senha inválida');
+            const senhaDescriptografada = await Criptografar.descriptografar(usuario.senha);
 
-            const basetoken = 'd41d8cd98f00b204e9800998ecf8427e';
-            const token = jwt.sign({ id: usuario.id }, basetoken, {
-                expiresIn: 86400,
-                algorithm: "HS256"
-            });
-            return res.status(statusCode.success).json({ usuario, token });
+            if (senhaDescriptografada != senha)
+                return res.status(statusCode.bad).json('Senha está incorreta. Tente novamente!');
+
+            const token = await Token.gerarToken(usuario);
+
+            return res.set("x-access-token", token.toString()).status(statusCode.success).json({ usuario });
         } catch (error) {
             return res.status(statusCode.error).send('Erro na tentativa de login!');
         }
     }
 
-    // const a = await bcrypt.compare(senha, usuario.senha);
-    // console.log(a, usuario.senha);
-
     public async RecuperarSenha(req: Request, res: Response) {
         const { email } = req.body;
 
         try {
+
+            if (email === "")
+                return res.status(statusCode.bad).json('O campo: e-mail não pode ser vazio. Preencha-o corretamente!');
+
+            if (await Validations.validarEmail(email) == false) {
+                return ("O E-mail informado é invalido. Informe um e-mail valido!");
+            }
+
             const usuario = await Usuario.findOne({ email });
 
             if (!usuario)
-                res.status(400).send({ error: 'Usuario não encontrado' })
+                return res.status(400).json({ error: 'Usuario não encontrado. Tente novamente!' })
 
             const senhaTemporaria = crypto.randomBytes(5).toString('hex');
 

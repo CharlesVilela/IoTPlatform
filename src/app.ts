@@ -1,9 +1,7 @@
-import express from 'express';
+import express, { response } from 'express';
 import morgan from 'morgan';
-import exphbs from 'express-handlebars';
-import handlebars, { unregisterHelper, ParseOptions, create, RuntimeOptions } from 'handlebars';
+
 import path from 'path';
-import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
@@ -25,17 +23,6 @@ class Application {
 
     settings() {
         this.app.set('port', 3100);
-        this.app.set('views', path.join(__dirname, 'views'));
-        this.app.engine('.hbs', exphbs({
-            handlebars: allowInsecurePrototypeAccess(handlebars),
-            layoutsDir: path.join(this.app.get('views'), 'layouts'),
-            partialsDir: path.join(this.app.get('views'), 'partials'),
-            defaultLayout: 'main',
-            extname: '.hbs'
-
-        }));
-
-        this.app.set('view engine', '.hbs');
     }
 
     middlewares() {
@@ -47,6 +34,14 @@ class Application {
         this.app.use(bodyParser.urlencoded({ extended: false }));
 
         this.app.use(cors());
+
+        this.app.use(function (req, res, next) {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', '*');
+            res.header('Access-Control-Allow-Credentials', '*');
+            res.header('Access-Control-Expose-Headers', 'x-access-token');
+            next();
+        })
 
     }
 
