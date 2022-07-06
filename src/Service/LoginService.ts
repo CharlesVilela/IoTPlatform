@@ -44,10 +44,8 @@ class LoginService {
     }
 
     public async RecuperarSenha(req: Request, res: Response) {
-        const { email } = req.body;
-
         try {
-
+            const { email } = req.body;
             if (email === "")
                 return res.status(statusCode.bad).json('O campo: e-mail não pode ser vazio. Preencha-o corretamente!');
 

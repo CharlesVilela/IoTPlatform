@@ -78,7 +78,8 @@ class UsuarioController {
                 return res.status(statusCode.bad).json("O e-mail para qual você está tentando atualizar já pertence a outro usuário. Tente novamente com outro e-mail!");
             } else {
                 const senhaCriptografada = await Criptografar.criptografar(senha);
-                const usuario = await Usuario.findByIdAndUpdate(id, { nome: nome, nomeUsuario: nomeUsuario, email: email, senha: senhaCriptografada.toString() });
+                await Usuario.findByIdAndUpdate(id, { nome: nome, nomeUsuario: nomeUsuario, email: email, senha: senhaCriptografada.toString() });
+                const usuario = await Usuario.findById(id);
                 return res.status(statusCode.success).json(usuario);
             }
         } catch (error) {

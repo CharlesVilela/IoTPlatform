@@ -13,7 +13,6 @@ class Criptografar {
         const cipher = crypto.createCipher(this.DADOS_CRIPTOGRAFAR.algoritmo, this.DADOS_CRIPTOGRAFAR.segredo);
         cipher.update(senha);
         const senhaCripto = cipher.final(this.DADOS_CRIPTOGRAFAR.tipo);
-
         return senhaCripto;
     };
 

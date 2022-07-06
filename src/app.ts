@@ -41,7 +41,7 @@ class Application {
             res.header('Access-Control-Allow-Credentials', '*');
             res.header('Access-Control-Expose-Headers', 'x-access-token');
             next();
-        })
+        });
 
     }
 
