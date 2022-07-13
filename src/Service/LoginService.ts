@@ -2,13 +2,14 @@
 import { Request, Response } from "express";
 import crypto from 'crypto';
 
+import bcrypt from 'bcrypt';
+
 // IMPORT DO MODEL
 import Usuario from '../entities/model/Usuario';
 
 // IMPORT DO CONFIG.
 import statusCode from '../config/statusCode';
 import nodemailer from '../config/MailerConfig';
-import Criptografar from '../config/Criptografar';
 import Token from "../config/Token";
 import Validations from "../validations/Validations";
 
@@ -30,9 +31,7 @@ class LoginService {
             if (!usuario)
                 return res.status(statusCode.bad).json('Não foi possivel encontrar um usuario cadastrado com esse e-mail. Tente novamente!');
 
-            const senhaDescriptografada = await Criptografar.descriptografar(usuario.senha);
-
-            if (senhaDescriptografada != senha)
+            if (!bcrypt.compareSync(senha, usuario.senha.toString()))
                 return res.status(statusCode.bad).json('Senha está incorreta. Tente novamente!');
 
             const token = await Token.gerarToken(usuario);

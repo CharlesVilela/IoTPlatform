@@ -24,7 +24,7 @@ const usuarioSchema = new Schema({
     senha: {
         type: String,
         required: [true, 'A senha é obrigatória'],
-        lowercase: true,
+        lowercase: false,
         select: false,
     },
     imagemPerfil: {

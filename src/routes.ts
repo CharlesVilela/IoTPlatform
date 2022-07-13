@@ -31,7 +31,7 @@ routes.post('/usuario/recuperarSenha', LogarService.RecuperarSenha);
 // ROUTES USUARIO
 routes.post('/usuario', UsuarioController.Cadastrar);
 
-routes.use(autoMidlewares); // UTILIZANDO O GERADOR DO TOKEN. DESTA LINHA PARA BAIXO SÓ SERÁ UTILIZADA SE TIVER O TOKEN DE AUTENTICAÇÃO.
+//routes.use(autoMidlewares); // UTILIZANDO O GERADOR DO TOKEN. DESTA LINHA PARA BAIXO SÓ SERÁ UTILIZADA SE TIVER O TOKEN DE AUTENTICAÇÃO.
 routes.patch('/usuario/:id/foto', multer(multerConfig).single('file'), UsuarioController.ImagemPerfil);
 routes.get('/usuario', UsuarioController.ListarTodos);
 routes.get('/usuario/:id', UsuarioController.BuscarPorId); // O ID utilizado nesta Rota para BUSCAR é o ID do USUÁRIO

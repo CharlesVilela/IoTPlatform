@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
-    "@types/bcrypt": "^3.0.0",
+    "@types/bcrypt": "^3.0.1",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mosca": "^2.8.3",
     "@types/nodemailer": "^6.4.0",

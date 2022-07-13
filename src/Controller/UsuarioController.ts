@@ -1,9 +1,9 @@
 import Usuario from '../entities/model/Usuario';
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 
 import statusCode from '../config/statusCode';
 import validations from '../validations/Validations';
-import Criptografar from '../config/Criptografar';
 
 class UsuarioController {
 
@@ -19,8 +19,10 @@ class UsuarioController {
             if (await validations.verifcarExisteUsuarioByEmail(email) != null) {
                 return res.status(statusCode.success).json("Já existe um usuário com esse e-mail cadastrado. Tente com outro e-mail!");
             } else {
-                const senhaCriptografada = await Criptografar.criptografar(senha);
-                const usuario = new Usuario({ nome: nome, nomeUsuario: nomeUsuario, email: email, senha: senhaCriptografada, papel: "usuario" });
+                const salt = bcrypt.genSaltSync(10);
+                const hash = bcrypt.hashSync(senha, salt);
+
+                const usuario = new Usuario({ nome: nome, nomeUsuario: nomeUsuario, email: email, senha: hash, papel: "usuario" });
                 await Usuario.create(usuario);
                 return res.status(statusCode.success).json(usuario);
             }
@@ -77,8 +79,9 @@ class UsuarioController {
             if (optUsuario != null && optUsuario.id != id) {
                 return res.status(statusCode.bad).json("O e-mail para qual você está tentando atualizar já pertence a outro usuário. Tente novamente com outro e-mail!");
             } else {
-                const senhaCriptografada = await Criptografar.criptografar(senha);
-                await Usuario.findByIdAndUpdate(id, { nome: nome, nomeUsuario: nomeUsuario, email: email, senha: senhaCriptografada.toString() });
+                const salt = bcrypt.genSaltSync(10);
+                const hash = bcrypt.hashSync(senha, salt);
+                await Usuario.findByIdAndUpdate(id, { nome: nome, nomeUsuario: nomeUsuario, email: email, senha: hash.toString() });
                 const usuario = await Usuario.findById(id);
                 return res.status(statusCode.success).json(usuario);
             }
