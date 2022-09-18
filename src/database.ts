@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
-const URI = 'mongodb+srv://db:123@cluster0.vk07q.mongodb.net/db?retryWrites=true&w=majority';
+const URI = 'mongodb+srv://ppo:1234@cluster0.hqcd6pw.mongodb.net/?retryWrites=true&w=majority';
 
-async function connect (){
+async function connect() {
 
-    try{
-       await mongoose.connect(URI, {
+    try {
+        await mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
@@ -13,7 +13,7 @@ async function connect (){
         });
         console.log('Database successfully connected!');
     }
-    catch{
+    catch {
         console.log('Error connecting to the database!');
     }
 
